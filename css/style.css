@@ -1,0 +1,291 @@
+:root {
+  --white: #d7f6c9;
+  --header: #b46e4e;
+  /*
+    Height reserved for the sticky header. Adjust this value if you change
+    header's padding or font-size so the fixed left panel sits below it.
+  */
+  --header-height: 64px;
+  /*
+    The maximum width used by the centered content container. We use this to
+    compute the left offset for a fixed left panel so it lines up with the
+    left edge of `.content-width` when the viewport is wide.
+  */
+  --content-max-width: 1200px;
+  --background: #faf9f6;
+  --text: #1e1e1e;
+  --text-secondary: #6e6e6e;
+  --link-hover: #8f563a;
+  --gray: #141313;
+  --blue: #1857e9;
+  --lblue: #71b8ff;
+  --lgray: #c3d8f471;
+}
+
+/*setting default page style*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: none;
+}
+
+.main-btn {
+  width: fit-content;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: var(--lgray);
+  border: 2px solid var(--lblue);
+  border-radius: 5px;
+  transition: background-color 120ms ease;
+}
+.main-btn:hover {
+  background-color: var(--link-hover);}
+
+header {
+  padding: 15px 25px;
+  background-color: var(--header);
+  /*
+    Make header stick to the top of the viewport so navigation remains visible.
+    We add a high z-index so the header sits above the main content when it
+    scrolls underneath. This is important for accessibility and consistent UI.
+  */
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav ul{
+  list-style: none;
+  box-shadow: 2px 2px 10px var(--text-secondary);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.content-width {
+  max-width: 1200px;
+  margin: 0 auto;
+  /*padding: 25px 0;*/
+}
+
+.main-content {
+  display: flex;
+  gap: 40px;
+  flex: 1; /*push the footer to the buttom of the page*/
+}
+
+.about-me {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content;
+  padding: 30px 5px 0px 5px;
+  gap: 15px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.sticky-left-panel {
+  /*
+    Keep the left panel visible while the user scrolls the right-card. The
+    'position: sticky' with a top offset makes the block stick within the
+    nearest scrolling ancestor (the document in our layout). We set a max-width
+    so it behaves well on smaller screens and use align-self to control
+    its placement relative to the .main-content flex container.
+  
+  position: sticky;
+  top: 550px;  offset from the top to clear the sticky header */
+  width: 260px;
+  max-width: 35%;
+  flex-wrap: wrap;
+  align-self: flex-start;
+}
+
+/*
+  Desktop: make the left panel fixed so it never scrolls with the page.
+  We compute a left offset so the fixed panel lines up with the left edge of
+  the centered `.content-width` container. This keeps visual alignment on wide
+  viewports while still allowing mobile to fall back to normal flow.
+*/
+@media (min-width: 1000px) {
+  .sticky-left-panel {
+    position: fixed;
+    top: calc(var(--header-height) + 5.75rem); /* sit below the header */
+    /*
+      Compute left offset: center the content-width and then position the
+      panel at the left edge of that content area. Using calc with 50vw
+      aligns the math regardless of viewport size.
+    */
+    left: calc(50vw - (var(--content-max-width) / 2));
+  }
+
+  /*
+    Prevent the right column from being covered by the fixed panel by adding
+    a left margin roughly equal to the panel's width plus the grid gap.
+    Adjust this value if you change `.sticky-left-panel` width or `.main-content` gap.
+  */
+  .main-content > .right-card {
+    margin-left: calc(250px + 40px);
+  }
+}
+
+.sticky-left-panel img {
+  /*border-radius: 50%;*/
+  object-fit: cover;
+  border-radius: 10px;
+}
+.social-links {
+  /*
+    Container for the social icons. We use a horizontal layout on desktop and
+    switch to a row/column via media queries on small screens.
+  */
+  display: flex;
+  gap: 10px;
+  /*margin-top: 10px;*/
+  align-items: center;
+}
+
+.social-link {
+  /*
+    Make the icon accessible and visually consistent: use currentColor so the
+    icons inherit text color. Add focus and hover styles for keyboard users.
+  */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  text-decoration: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.social-link svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.social-link:hover,
+.social-link:focus {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: var(--link-hover);
+  outline: none;
+}
+.right-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-card{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 38px;
+}
+.show-abstract {
+  padding: 5px 10px;
+  width: fit-content;
+  color: var(--blue);
+  cursor: pointer;
+
+}
+
+.has-abstract{
+  border: 2px dashed var(--text-secondary);
+  padding: 25px;
+  background-color: var(--lgray);
+  width: fit-content;
+  border-radius: 10px;
+}
+
+.paper-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+footer {
+  background-color: var(--gray);
+  color: var(--white);
+  padding: 25px;
+  text-align: center;
+}
+
+/*
+  Responsive rules: stack the layout on narrow viewports. We reduce gaps and
+  make the sticky-left-panel part of normal flow (no fixed width) so it scales.
+  We also ensure images are fluid and buttons/typography adjust for mobile.
+*/
+@media (max-width: 900px) {
+  .main-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sticky-left-panel {
+    position: relative; /* disable sticky on very small screens */
+    width: 90%;
+    max-width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding-bottom: 45px;
+  }
+
+  .sticky-left-panel > img {
+    width: 147px;
+    height: 169px;
+  }
+.about-me {
+    padding:15px 15px;
+  }
+  
+  .social-links {
+    gap: 8px;
+  }
+
+  .content-width {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 15px;
+  }
+header {
+  font-size: 12px;
+}
+  .main-btn {
+    font-size: 16px;
+  }
+}
