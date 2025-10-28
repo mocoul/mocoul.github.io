@@ -1,26 +1,53 @@
-/* === Homepage Bio Section === */
+/* === Center intro section vertically on larger screens === */
 .profile {
   display: flex;
-  align-items: center;
+  align-items: center;          /* vertical alignment */
+  justify-content: center;      /* centers both items horizontally */
   gap: 2rem;
   flex-wrap: wrap;
+  min-height: 65vh;             /* gives vertical balance on desktop */
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Portrait and text styling */
+.portrait {
+  width: 230px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-shrink: 0;
 }
 
 .bio {
   max-width: 600px;
 }
 
-.paper-link {
-  color: #002c5a;
-  text-decoration: none;
-}
-
-.paper-link:hover {
-  text-decoration: underline;
-}
-
-/* Highlight Job Market Line */
+/* Highlight Job Market line */
 .bio strong {
   color: #0055A4;
   font-weight: 700;
+}
+
+/* Slight extra space below bio for visual balance */
+.bio p:last-child {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive tweaks for smaller screens */
+@media (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: auto;
+    text-align: left;
+  }
+  .portrait {
+    width: 180px;
+    margin-bottom: 1rem;
+  }
+  .bio {
+    max-width: 100%;
+  }
 }
