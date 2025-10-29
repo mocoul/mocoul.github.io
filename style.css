@@ -105,3 +105,56 @@ footer {
     width: 180px;
   }
 }
+
+
+/* === Two-column layout with fixed sidebar === */
+.layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  gap: 3rem;
+}
+
+/* Sidebar stays visible while scrolling */
+.sidebar {
+  width: 280px;
+  position: sticky;
+  top: 100px; /* adjust to header height */
+  align-self: flex-start;
+  text-align: center;
+}
+
+.portrait {
+  width: 220px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.side-info {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Right content */
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Mobile: stack everything */
+@media (max-width: 800px) {
+  .layout {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .sidebar {
+    position: static;
+    width: 100%;
+  }
+  .portrait {
+    width: 160px;
+  }
+}
+
