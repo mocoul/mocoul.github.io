@@ -1,6 +1,6 @@
 # moco
 Mohamed Coulibaly’s website
-
+<!--
 # Article link: https://www.nber.org/papers/w32456
 
 # Title: A Sharp Test for the Judge Leniency Design
@@ -12,3 +12,4 @@ Mohamed Coulibaly’s website
 # https://sarahwduffy.github.io/
 # https://di-tong.github.io/
 # https://tobiaskawalec.com/
+-->
